@@ -7,7 +7,8 @@ html * {
     font-family: monospace, monospaSFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 
@@ -28,19 +29,24 @@ html, body {
     font-size: 0.9em;
     opacity: 0.5;
 }
+
 .green {
     color: #8cd47e;
 }
+
 .red {
     color: #ff6961;
 }
+
 .yellow {
     color: #ca1;
 }
+
 .clickable {
     cursor: pointer;
     transition: 250ms all;
 }
+
 .clickable:hover {
     opacity: 0.8;
 }
@@ -64,34 +70,40 @@ html, body {
     flex-wrap: nowrap;
     padding: 8px 4px;
 }
-.settings_group > .label {
+
+.settings_group>.label {
     flex-grow: 1;
     font-size: 1.2em;
     line-height: calc(34px * var(--input_scale_y));
     padding-right: 16px;
 }
-.settings_group > .value {
+
+.settings_group>.value {
     font-size: 1.2em;
     line-height: calc(34px * var(--input_scale_y));
 }
-.settings_group > input {
+
+.settings_group>input {
     border-radius: 0;
 }
-.settings_group > input[type="text"],
-.settings_group > input[type="button"],
-.settings_group > select {
+
+.settings_group>input[type="text"],
+.settings_group>input[type="button"],
+.settings_group>select {
     font-size: 0.9em;
     outline: none;
     border: 1px solid #999;
     width: calc(60px * var(--input_scale_x));
     height: calc(34px * var(--input_scale_y));
 }
-.settings_group > input[type="button"] {
+
+.settings_group>input[type="button"] {
     background-color: #f0f0f0;
     cursor: pointer;
     transition: 200ms all;
 }
-.settings_group > input[type="button"]:hover {
+
+.settings_group>input[type="button"]:hover {
     background-color: #fff;
 }
 
@@ -101,11 +113,13 @@ html, body {
     width: calc(60px * var(--input_scale_x));
     height: calc(34px * var(--input_scale_y));
 }
+
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
+
 .slider {
     position: absolute;
     cursor: pointer;
@@ -117,6 +131,7 @@ html, body {
     -webkit-transition: .4s;
     transition: .4s;
 }
+
 .slider:before {
     position: absolute;
     content: "";
@@ -128,13 +143,16 @@ html, body {
     -webkit-transition: .4s;
     transition: .4s;
 }
-input:checked + .slider {
+
+input:checked+.slider {
     background-color: #2196F3;
 }
-input:focus + .slider {
+
+input:focus+.slider {
     box-shadow: 0 0 1px #2196F3;
 }
-input:checked + .slider:before {
+
+input:checked+.slider:before {
     -webkit-transform: translateX(calc(26px * var(--input_scale_x)));
     -ms-transform: translateX(calc(26px * var(--input_scale_x)));
     transform: translateX(calc(26px * var(--input_scale_x)));
