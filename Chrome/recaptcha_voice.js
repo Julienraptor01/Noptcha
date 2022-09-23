@@ -21,9 +21,9 @@
     async function t(t) {
         var c = await n.exec("get_cache", {
             name: "recaptcha_visible",
-            tab_specific: !0
+            tab_specific: true
         });
-        if (!0 === c && !u()) {
+        if (true === c && !u()) {
             if (s()) return o.log("got solve error"), void await n.exec("reset_recaptcha");
             c = document.querySelector(".rc-audiochallenge-tdownload-link") ? .href, c = (fetch(c), await i.random_sleep(...r), document.querySelector("#audio-source") ? .src ? .replace("recaptcha.net", "google.com"));
             let e = document.querySelector("html") ? .getAttribute("lang") ? .trim();
@@ -46,22 +46,22 @@
         c && "voice" === c.solve_method && (o.debug = c.debug, async function () {
             var t = document.querySelectorAll('iframe[src*="/recaptcha/api2/bframe"]');
             if (0 < t.length) {
-                let e = !1;
+                let e = false;
                 for (const c of t)
                     if (e = "visible" === window.getComputedStyle(c).visibility) break;
                 e ? await n.exec("set_cache", {
                     name: "recaptcha_visible",
-                    value: !0,
-                    tab_specific: !0
+                    value: true,
+                    tab_specific: true
                 }) : await n.exec("set_cache", {
                     name: "recaptcha_visible",
-                    value: !1,
-                    tab_specific: !0
+                    value: false,
+                    tab_specific: true
                 })
             }
-        }(), c.auto_open && null !== document.querySelector(".recaptcha-checkbox") ? await e(c) : c.auto_solve && null !== document.querySelector(".rc-imageselect-instructions") ? (a = c, await (!0 === await n.exec("get_cache", {
+        }(), c.auto_open && null !== document.querySelector(".recaptcha-checkbox") ? await e(c) : c.auto_solve && null !== document.querySelector(".rc-imageselect-instructions") ? (a = c, await (true === await n.exec("get_cache", {
             name: "recaptcha_visible",
-            tab_specific: !0
+            tab_specific: true
         }) && !u() && (await i.sleep(a.open_delay), !document.querySelector("#recaptcha-audio-button") ? .click()))) : !c.auto_solve || null === document.querySelector("#audio-instructions") && null === document.querySelector(".rc-doscaptcha-header") || await t(c))
     }
     var a

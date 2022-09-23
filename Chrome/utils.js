@@ -8,7 +8,7 @@ class Type {
     }
 }
 class Logger {
-    static debug = !0;
+    static debug = true;
     static log(t = 0) {
         const e = new Array(...arguments).map(t => ["array", "object"].includes(Type.of(t)) ? JSON.stringify(t, null, 4) : "" + t);
         e.join(" ")

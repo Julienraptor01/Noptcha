@@ -75,11 +75,11 @@
     async function t(e) {
         var t = await w.exec("get_cache", {
             name: "job_id",
-            tab_specific: !0
+            tab_specific: true
         });
         return await w.exec("empty_cache", {
             name: "job_id",
-            tab_specific: !0
+            tab_specific: true
         }), u.fetch(o + "/report", {
             method: "POST",
             body: JSON.stringify({
@@ -105,8 +105,8 @@
             for (var t = g.time();;) {
                 var a = document.querySelectorAll(".rc-imageselect-tile"),
                     c = document.querySelectorAll(".rc-imageselect-dynamic-selected");
-                if (0 < a.length && 0 === c.length) return e(!0);
-                if (g.time() - t > r) return e(!1);
+                if (0 < a.length && 0 === c.length) return e(true);
+                if (g.time() - t > r) return e(false);
                 await g.random_sleep(..._)
             }
         })
@@ -116,40 +116,40 @@
         if (e.debug) {
             let e = await w.exec("get_cache", {
                     name: "recaptcha_pass",
-                    tab_specific: !0
+                    tab_specific: true
                 }),
                 t = await w.exec("get_cache", {
                     name: "recaptcha_fail",
-                    tab_specific: !0
+                    tab_specific: true
                 });
             null === e && (e = 0), null === t && (t = 0);
             0 < e + t && Math.round(100 * e / (e + t))
         }
     }
     async function r(e) {
-        if (a()) return l || (await t(!0), await w.exec("inc_cache", {
+        if (a()) return l || (await t(true), await w.exec("inc_cache", {
             name: "recaptcha_pass",
-            tab_specific: !0
-        }), await c(), l = !0), void(e.debug && await w.exec("reset_recaptcha"));
-        l = !1, await g.sleep(e.open_delay), document.querySelector("#recaptcha-anchor") ? .click()
+            tab_specific: true
+        }), await c(), l = true), void(e.debug && await w.exec("reset_recaptcha"));
+        l = false, await g.sleep(e.open_delay), document.querySelector("#recaptcha-anchor") ? .click()
     }
     async function i(r) {
         r.debug && await w.exec("reload_tab", {
             delay: 3e5,
-            overwrite: !0
+            overwrite: true
         });
         var i = await w.exec("get_cache", {
             name: "recaptcha_visible",
-            tab_specific: !0
+            tab_specific: true
         });
-        if (!0 === i && !a()) {
+        if (true === i && !a()) {
             if (x = !(x || ! function () {
                     for (const e of [".rc-imageselect-incorrect-response"])
                         if ("" === document.querySelector(e) ? .style.display) return 1
                 }()) && (await t(!(k = [])), await w.exec("inc_cache", {
                     name: "recaptcha_fail",
-                    tab_specific: !0
-                }), await c(), !0), function () {
+                    tab_specific: true
+                }), await c(), true), function () {
                     for (const e of [".rc-imageselect-error-select-more", ".rc-imageselect-error-dynamic-more", ".rc-imageselect-error-select-something"])
                         if ("" === document.querySelector(e) ? .style.display) return 1
                 }()) return await t(!(k = [])), void await w.exec("reset_recaptcha");
@@ -162,41 +162,41 @@
                         background_url: o,
                         urls: u
                     } = await new Promise(f => {
-                        let d = !1;
+                        let d = false;
                         const m = setInterval(() => {
                             if (!d) {
-                                d = !0;
+                                d = true;
                                 let c = null;
                                 const e = document.querySelector(".rc-imageselect-instructions") ? .innerText ? .split("\n");
                                 if (c = 1 < e.length ? (c = e.slice(0, 2).join(" ")).replace(/\s+/g, " ") ? .trim() : c) {
                                     var r = 3 === e.length,
                                         i = document.querySelectorAll("table tr td");
-                                    if (9 !== i.length && 16 !== i.length) d = !1;
+                                    if (9 !== i.length && 16 !== i.length) d = false;
                                     else {
                                         const s = [],
                                             o = Array(i.length).fill(null);
                                         let e = null,
-                                            t = !1,
+                                            t = false,
                                             a = 0;
                                         for (const u of i) {
                                             var l = u ? .querySelector("img");
-                                            if (!l) return void(d = !1);
+                                            if (!l) return void(d = false);
                                             var n = l.src ? .trim();
-                                            if (!n || "" === n) return void(d = !1);
-                                            300 <= l.naturalWidth ? e = n : 100 == l.naturalWidth && (o[a] = n, t = !0), s.push(u), a++
+                                            if (!n || "" === n) return void(d = false);
+                                            300 <= l.naturalWidth ? e = n : 100 == l.naturalWidth && (o[a] = n, t = true), s.push(u), a++
                                         }
                                         t && (e = null);
                                         i = JSON.stringify([e, o]);
-                                        if (S !== i) return S = i, clearInterval(m), d = !1, f({
+                                        if (S !== i) return S = i, clearInterval(m), d = false, f({
                                             task: c,
                                             is_hard: r,
                                             cells: s,
                                             background_url: e,
                                             urls: o
                                         });
-                                        d = !1
+                                        d = false
                                     }
-                                } else d = !1
+                                } else d = false
                             }
                         }, l)
                     }),
@@ -229,10 +229,10 @@
                     0 < r && await g.sleep(r), await w.exec("append_cache", {
                         name: "job_id",
                         value: i,
-                        tab_specific: !0
+                        tab_specific: true
                     }), await g.random_sleep(..._);
                     let t = 0;
-                    for (let e = 0; e < h.length; e++) !1 !== h[e] && (t++, function (e) {
+                    for (let e = 0; e < h.length; e++) false !== h[e] && (t++, function (e) {
                         try {
                             return e.classList.contains("rc-imageselect-tileselected")
                         } catch {}
@@ -243,8 +243,8 @@
             } else await w.exec("reset_recaptcha")
         }
     }
-    let l = !1,
-        x = !1,
+    let l = false,
+        x = false,
         k = [];
     for (;;) {
         await g.sleep(1e3);
@@ -252,17 +252,17 @@
         n && "image" === n.solve_method && (e.debug = n.debug, async function () {
             var t = document.querySelectorAll('iframe[src*="/bframe"]');
             if (0 < t.length) {
-                let e = !1;
+                let e = false;
                 for (const a of t)
                     if (e = "visible" === window.getComputedStyle(a).visibility) break;
                 e ? await w.exec("set_cache", {
                     name: "recaptcha_visible",
-                    value: !0,
-                    tab_specific: !0
+                    value: true,
+                    tab_specific: true
                 }) : await w.exec("set_cache", {
                     name: "recaptcha_visible",
-                    value: !1,
-                    tab_specific: !0
+                    value: false,
+                    tab_specific: true
                 })
             }
         }(), n.auto_open && null !== document.querySelector(".recaptcha-checkbox") ? await r(n) : n.auto_solve && null !== document.querySelector("#rc-imageselect") && await i(n))

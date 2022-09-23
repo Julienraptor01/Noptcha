@@ -96,8 +96,8 @@
     async function t(e) {
         if ("block" === document.querySelector("div.check") ? .style.display) return r || (await f.exec("inc_cache", {
             name: "hcaptcha_pass"
-        }), await _(), r = !0), void(e.debug && window.location.reload());
-        r = !1, await m.sleep(e.open_delay), document.querySelector("#checkbox") ? .click()
+        }), await _(), r = true), void(e.debug && window.location.reload());
+        r = false, await m.sleep(e.open_delay), document.querySelector("#checkbox") ? .click()
     }
     async function a(e) {
         y = !(y || ! function () {
@@ -105,7 +105,7 @@
             return "true" !== e ? .getAttribute("aria-hidden")
         }()) && (await f.exec("inc_cache", {
             name: "hcaptcha_fail"
-        }), await _(), !0);
+        }), await _(), true);
         c = 100;
         const {
             task: t,
@@ -113,38 +113,38 @@
             cells: r,
             urls: i
         } = await new Promise(l => {
-            let s = !1;
+            let s = false;
             const o = setInterval(() => {
                 if (!s) {
-                    s = !0;
+                    s = true;
                     var e = document.querySelector("h2.prompt-text") ? .innerText ? .replace(/\s+/g, " ") ? .trim();
                     if (e) {
                         var t = document.querySelector(".challenge-example > .image > .image"),
                             t = g(t);
                         if (t && "" !== t) {
                             var a = document.querySelectorAll(".task-image");
-                            if (9 !== a.length) s = !1;
+                            if (9 !== a.length) s = false;
                             else {
                                 const i = [],
                                     c = [];
                                 for (const n of a) {
                                     var r = n.querySelector("div.image");
-                                    if (!r) return void(s = !1);
+                                    if (!r) return void(s = false);
                                     r = g(r);
-                                    if (!r || "" === r) return void(s = !1);
+                                    if (!r || "" === r) return void(s = false);
                                     i.push(n), c.push(r)
                                 }
                                 a = JSON.stringify(c);
-                                if (p !== a) return p = a, clearInterval(o), s = !1, l({
+                                if (p !== a) return p = a, clearInterval(o), s = false, l({
                                     task: e,
                                     task_url: t,
                                     cells: i,
                                     urls: c
                                 });
-                                s = !1
+                                s = false
                             }
-                        } else s = !1
-                    } else s = !1
+                        } else s = false
+                    } else s = false
                 }
             }, c)
         });
@@ -160,15 +160,15 @@
         if (o) {
             n = e.solve_delay - (m.time() - s);
             0 < n && await m.sleep(n), await m.random_sleep(...d);
-            for (let e = 0; e < o.length; e++) !1 !== o[e] && "true" !== r[e].getAttribute("aria-pressed") && r[e].click();
+            for (let e = 0; e < o.length; e++) false !== o[e] && "true" !== r[e].getAttribute("aria-pressed") && r[e].click();
             await m.random_sleep(...d);
             try {
                 document.querySelector(".button-submit").click()
             } catch (e) {}
         }
     }
-    let r = !1,
-        y = !1;
+    let r = false,
+        y = false;
     for (;;) {
         await m.sleep(1e3);
         var i = await f.exec("get_settings");

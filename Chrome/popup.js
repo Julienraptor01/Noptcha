@@ -66,13 +66,13 @@ async function main() {
     for (const n of document.querySelectorAll('.settings_group input[type="checkbox"]')) n.addEventListener("change", () => set_switch(n.id, n.checked));
     for (const c of document.querySelectorAll('.settings_group input[type="text"]')) c.addEventListener("input", () => set_field(c.id, c.value));
     for (const o of document.querySelectorAll(".settings_group select")) o.addEventListener("change", () => set_select(o.id, o.value));
-    async function t() {
+    async function queryServerStatus() {
         var e = await BG.exec("get_server_status");
         if (["Online", "Offline", "Slow", "Update Required"].includes(e)) {
             const t = document.querySelector("#server_status");
             t.innerHTML = e, t.classList.remove("green"), t.classList.remove("yellow"), t.classList.remove("red"), "Online" === e ? t.classList.add("green") : "Offline" === e ? t.classList.add("red") : "Slow" !== e && "Update Required" !== e || t.classList.add("yellow")
         }
     }
-    await t(), setInterval(t, 1e3)
+    await queryServerStatus(), setInterval(queryServerStatus, 1e3)
 }
 document.addEventListener("DOMContentLoaded", main);

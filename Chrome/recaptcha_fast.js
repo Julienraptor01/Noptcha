@@ -1,8 +1,8 @@
 (async () => {
     var {} = await import(chrome.runtime.getURL("utils.js"));
     let i = null,
-        n = !1,
-        s = !1;
+        n = false,
+        s = false;
 
     function a(e) {
         let t = e;
@@ -10,17 +10,17 @@
         return t
     }
 
-    function t(e, t, n = !1) {
-        !e || !n && i === e || (!0 === t && e.classList.contains("rc-imageselect-tileselected") || !1 === t && !e.classList.contains("rc-imageselect-tileselected")) && e.click()
+    function t(e, t, n = false) {
+        !e || !n && i === e || (true === t && e.classList.contains("rc-imageselect-tileselected") || false === t && !e.classList.contains("rc-imageselect-tileselected")) && e.click()
     }
     document.addEventListener("mousedown", e => {
         const t = a(e ? .target);
-        t && (s = t.classList.contains("rc-imageselect-tileselected") ? n = !0 : !(n = !0), i = t)
+        t && (s = t.classList.contains("rc-imageselect-tileselected") ? n = true : !(n = true), i = t)
     }), document.addEventListener("mouseup", e => {
-        n = !1, i = null
+        n = false, i = null
     }), document.addEventListener("mousemove", e => {
         e = a(e ? .target);
-        n && (i !== e && null !== i && t(i, s, !0), t(e, s))
+        n && (i !== e && null !== i && t(i, s, true), t(e, s))
     });
     window.addEventListener("load", function (e) {
         const t = document.body.appendChild(document.createElement("style")).sheet;
